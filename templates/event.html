@@ -1,0 +1,50 @@
+<h2 style="margin-top: 0">Teams</h2>
+<table class="table-responsive sortable-theme-bootstrap" data-sortable>
+  <thead>
+    <tr>
+      <th style="min-width: 65px;">Team #</th>
+      <th>Name</th>
+      {{#each ['auto_low', 'auto_high', 'teleop_low', 'teleop_high'] }}
+        <th class="right" title="{{ statConfig.goals[this].short_label }}">{{ statConfig.goals[this].short_label || statConfig.goals[this].label }}</th>
+      {{/each}}
+      {{#each statConfig.defenses:key}}
+        <th class="right" title="{{ this.label }}">{{ this.short_label || this.label }}</th>
+      {{/each}}
+      {{#each ['predicted_rp', 'score'] }}
+        <th class="{{ statConfig.calcs[this].align }}" title="{{ statConfig.calcs[this].label }}">{{ statConfig.calcs[this].short_label || statConfig.calcs[this].label }}</th>
+      {{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#if loading}}
+      <tr><td colspan="100">Loading teams...</td></tr>
+    {{/if}}
+    {{#teams:i}}
+      <tr>
+        <td><a href="#/team/{{team_number}}">{{team_number}}</a></td>
+        <td>{{nickname}}</td>
+        {{#each statConfig.goals}}
+          <td class="right stat">{{ round(teams[i].stats.goals[@key], this.decimals) }}</td>
+        {{/each}}
+        {{#each statConfig.defenses }}
+          <td class="right stat">
+            {{# { value: round(teams[i].stats.defenses[@key], this.decimals), stat: this } }}
+              {{#if mobile && stat.progress}}
+                <span class="label label-{{statColor(value, stat)}}">{{value}}</span>
+              {{else}}
+                {{value}}
+                {{#if stat.progress}}
+                  <br>
+                  <Progress value="{{value}}" stat="{{stat}}"/>
+                {{/if}}
+              {{/if}}
+            {{/}}
+          </td>
+        {{/each}}
+        {{#each ['predicted_rp', 'score'] }}
+          <td class="{{ statConfig.calcs[this].align }} stat">{{ round(teams[i].stats.calcs[this], statConfig.calcs[this].decimals) }}</td>
+        {{/each}}
+      </tr>
+    {{/}}
+  </tbody>
+</table>

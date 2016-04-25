@@ -1,0 +1,139 @@
+@CHARSET "UTF-8";
+
+body {
+   margin-top: 5em;
+   overflow-y: scroll;
+}
+
+footer {
+   /*z-index: 10;*/
+	background-color: #555;
+	color: white;
+	padding: 15px;
+
+   /*position: fixed;*/
+   /*bottom: 0;*/
+   /*left: 0;*/
+   /*right: 0;*/
+}
+footer > p {
+   margin: 0;
+}
+
+/*.panel-heading h1,
+.panel-heading h2,
+.panel-heading h3,
+.panel-heading h4 {
+   margin: 0 auto;
+}
+
+.panel {
+   border-color: #D2D3D3;
+}*/
+
+.overlay {
+   position: fixed;
+   z-index: 1030;
+   left: 0px;
+   right: 0px;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+   body {
+      margin-top: 4em;
+   }
+}
+
+.navbar {
+   -webkit-box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.navbar input:focus {
+   border-color: #95a5a6;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#main {
+    text-align: left;
+}
+#main hr {
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.team-header {
+}
+.team-header > * {
+    margin: 0;
+    margin-right: 10px;
+    display:inline-block;
+    height: 35px;
+}
+.team-header a {
+    height:100%;
+    display:inline-block;
+    vertical-align: middle;
+}
+
+.panel-body > .row .progress {
+    height: 15px;
+}
+
+.panel-body > .row .progress-bar {
+    font-size: 14px;
+    padding-top: 5px;
+}
+.panel-body > .row:last-child .col-md-10 {
+    height: 15px;
+}
+
+.calcs > .row .value,
+.defenses > .row .value,
+.goals > div .value {
+    float: right;
+}
+
+/*.goals > .row {
+    max-width: 80px;
+}*/
+.goals > .row:not(:last-child) {
+    padding-bottom: 15px;
+}
+
+.goals > div h4 {
+    margin-top: 0 !important;
+}
+
+.stat {
+    text-align: center !important;
+}
+.stat > div {
+    display:inline-block;
+    text-align: right !important;
+    margin: 0 auto;
+}
+.stat .progress {
+    width: 80px;
+    float: right;
+}
+.stat .progress,
+.stat .progress-bar {
+    height: 10px;
+    margin: 0;
+}
+
+th.right, td.right {
+    text-align: right !important;
+}
+
+.container.wide {
+    width: 100%;
+}

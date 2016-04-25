@@ -1,0 +1,295 @@
+{
+  "groups": {
+    "calcs": {
+      "label": "Calculations",
+      "groups": [
+        {
+          "stat_keys": ["predicted_rp", "score"]
+        }
+      ]
+    },
+    "goals": {
+      "label": "Goals",
+      "groups": [
+        {
+          "label": "Auto",
+          "stat_keys": ["auto_low", "auto_high"]
+        },
+        {
+          "label": "Teleop",
+          "stat_keys": ["teleop_low", "teleop_high"]
+        }
+      ]
+    },
+    "defenses": {
+      "label": "Defenses",
+      "groups": [
+        {
+          "label": "",
+          "stat_keys": ["low_bar"]
+        },
+        {
+          "label": "Group A",
+          "stat_keys": ["portcullis", "cheval_de_frise"]
+        },
+        {
+          "label": "Group B",
+          "stat_keys": ["moat", "ramparts"]
+        },
+        {
+          "label": "Group C",
+          "stat_keys": ["drawbridge", "sally_port"]
+        },
+        {
+          "label": "Group D",
+          "stat_keys": ["rock_wall", "rough_terrain"]
+        }
+      ]
+    }
+  },
+  "calcs": {
+    "predicted_rp": {
+      "label": "Predicted RP",
+      "short_label": "RP",
+      "min": 0,
+      "decimals": 0,
+      "align": "right"
+    },
+    "score": {
+      "label": "Total Score",
+      "short_label": "Score",
+      "min": 0,
+      "decimals": 2,
+      "align": "right"
+    }
+  },
+  "goals": {
+    "auto_low": {
+      "label": "Auto Low",
+      "min": 0,
+      "decimals": 2,
+      "multiplier": 5
+    },
+    "auto_high": {
+      "label": "Auto High",
+      "min": 0,
+      "decimals": 2,
+      "multiplier": 10
+    },
+    "teleop_low": {
+      "label": "Teleop Low",
+      "min": 0,
+      "decimals": 2,
+      "multiplier": 2
+    },
+    "teleop_high": {
+      "label": "Teleop High",
+      "min": 0,
+      "decimals": 2,
+      "multiplier": 5
+    }
+  },
+  "defenses": {
+    "low_bar": {
+      "label": "Low Bar",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "portcullis": {
+      "label": "Portcullis",
+      "short_label": "Port.",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "cheval_de_frise": {
+      "label": "Cheval De Frise",
+      "short_label": "Cheval",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "moat": {
+      "label": "Moat",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "ramparts": {
+      "label": "Ramparts",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "drawbridge": {
+      "label": "Drawbridge",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "sally_port": {
+      "label": "Sally Port",
+      "short_label": "Sally Pt.",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "rock_wall": {
+      "label": "Rock Wall",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    },
+    "rough_terrain": {
+      "label": "Rough Terrain",
+      "min": 0,
+      "max": 2,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.667,
+          "class": "danger"
+        },
+        {
+          "min": 0.667,
+          "max": 1.333,
+          "class": "warning"
+        },
+        {
+          "min": 1.333,
+          "class": "success"
+        }
+      ],
+      "multiplier": 2.5
+    }
+  }
+}

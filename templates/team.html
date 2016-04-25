@@ -1,0 +1,41 @@
+<div class="team-header clearfix">
+  <h2>Team {{ team.team_number }} - {{ team.nickname }}</h2>
+  <div><a href="https://www.thebluealliance.com/team/{{ team.team_number }}" target="_blank">Open in TBA</a></div>
+</div>
+<hr>
+<h3 class="stats">Stats</h3>
+<br>
+
+{{#statKeys:i}}
+  {{# { groupKey: statKeys[i] } }}
+    <div id="{{ groupKey }}" class="panel panel-default">
+      <div class="panel-heading">{{ stats.groups[groupKey].label }}</div>
+      <div class="panel-body {{ groupKey }}">
+        {{#if stats.groups[groupKey].description }}
+          <p>{{ stats.groups[groupKey].description }}</p>
+          <hr>
+        {{/if}}
+        {{#stats.groups[groupKey].groups}}
+          {{#if this.label }}
+            <h4>{{ this.label }}</h4>
+          {{/if}}
+          {{#this.stat_keys}}
+            <div class="row">
+              <div class="col-md-2">
+                {{ stats[groupKey][this].label }}:
+                <span class="value">{{ round(team.stats[groupKey][this], stats[groupKey][this].decimals) }}</span>
+              </div>
+              <div class="col-md-10">
+                {{#if stats[groupKey][this].progress.length}}
+                  <Progress value="{{team.stats[groupKey][this]}}" stat="{{stats[groupKey][this]}}" />
+                {{/if}}
+              </div>
+            </div>
+          {{/}}
+        {{else}}
+          {{groupKey}}: {{stats.groups[groupKey]}}
+        {{/}}
+      </div>
+    </div>
+  {{/}}
+{{/}}
