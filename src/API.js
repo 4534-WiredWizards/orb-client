@@ -7,7 +7,6 @@ import { extend } from './helpers'
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
   let url = "http://c5032021.ngrok.io/"+key+"/";
-  url = "api.php?url="+encodeURIComponent(url);
   return new Promise(function(resolve, reject) {
     return $.ajax({
       method: "get",
