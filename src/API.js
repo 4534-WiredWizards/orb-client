@@ -7,7 +7,7 @@ import { extend } from './helpers'
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
   let url = "http://c5032021.ngrok.io/"+key+"/";
-  url = "api.php?url="+encodeURIComponent(url);
+  //url = "api.php?url="+encodeURIComponent(url);
   return new Promise(function(resolve, reject) {
     return $.ajax({
       method: "get",
@@ -80,4 +80,10 @@ export function getTeams(API, key) {
   }).then(function(teams) {
     return Promise.all(teams.map(team => getTeamStats(API, team.team_number, team)));
   });
+}
+
+export function generateToken(team,name) {
+  var token = team + "." + md5(name);
+  localStorage.setItem("token",token);
+  return token;
 }

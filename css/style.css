@@ -112,6 +112,33 @@ footer > p {
     margin-top: 0 !important;
 }
 
+#login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grey {
+  color: grey;
+}
+
+.team-input {
+  font-size: 1.5em;
+  width: 30% !important;
+  min-width: 200px;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .stat {
     text-align: center !important;
 }

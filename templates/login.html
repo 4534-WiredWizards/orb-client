@@ -1,0 +1,51 @@
+<div class="team-header clearfix text-center">
+  <h2>Welcome to Orb!</h2>
+  <br>
+  <h3 class="grey">Overpowered Ranking Bot - A superb predictive scouting system!</h3>
+</div>
+<hr>
+{{#if token}}
+
+{{else}}
+  <div id="login-wrapper">
+    <h4 class="text-center">We're glad you decided to try Orb! To begin, please enter your first name and team number below!</h4>
+    <input name="name" id="input-name" placeholder="Susan" class="form-control team-input" value="{{user.name}}"/>
+    <input name="number" id="input-number" placeholder="4534" class="form-control team-input" value="{{user.team}}"/>
+    <a class="btn btn-default team-input" href="#/login" role="button" id="login-button" on-tap="login">Start Orb</a>
+  </div>
+{{/if}}
+<br>
+
+{{#statKeys:i}}
+  {{# { groupKey: statKeys[i] } }}
+    <div id="{{ groupKey }}" class="panel panel-default">
+      <div class="panel-heading">{{ stats.groups[groupKey].label }}</div>
+      <div class="panel-body {{ groupKey }}">
+        {{#if stats.groups[groupKey].description }}
+          <p>{{ stats.groups[groupKey].description }}</p>
+          <hr>
+        {{/if}}
+        {{#stats.groups[groupKey].groups}}
+          {{#if this.label }}
+            <h4>{{ this.label }}</h4>
+          {{/if}}
+          {{#this.stat_keys}}
+            <div class="row">
+              <div class="col-md-2">
+                {{ stats[groupKey][this].label }}:
+                <span class="value">{{ round(team.stats[groupKey][this], stats[groupKey][this].decimals) }}</span>
+              </div>
+              <div class="col-md-10">
+                {{#if stats[groupKey][this].progress.length}}
+                  <Progress value="{{team.stats[groupKey][this]}}" stat="{{stats[groupKey][this]}}" />
+                {{/if}}
+              </div>
+            </div>
+          {{/}}
+        {{else}}
+          {{groupKey}}: {{stats.groups[groupKey]}}
+        {{/}}
+      </div>
+    </div>
+  {{/}}
+{{/}}

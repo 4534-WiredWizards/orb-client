@@ -26,6 +26,10 @@ Promise.all([documentReady, Components.load()]).then(function(res) {
   });
   router.init();
   if (!router.getRoute().filter(Boolean).length) {
-    router.setRoute("/event/2016arc");
+    if(localStorage.getItem('token')) {
+      router.setRoute("/event/2016arc");
+    } else {
+      router.setRoute("/login");
+    }
   }
 });
