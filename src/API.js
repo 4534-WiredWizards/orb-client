@@ -34,22 +34,10 @@ export function getTeamStats(API, key, team) {
   }
   return Promise.all(promises).then(function(res) {
     let [defenses, goals, team] = res;
-    defenses = goals = [
-      4534,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-    ];
     return extend(team, {
       stats: {
         calcs: {
-          predicted_rp: Math.random()*2*10,
+          predicted_rp: 0,
           score: 0
         },
         defenses: {
