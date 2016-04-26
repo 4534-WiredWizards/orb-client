@@ -9,6 +9,7 @@ const router = Router({
   "/login": Pages.login,
   "/team/:key": Pages.team,
   "/event/:key": Pages.event,
+  "/event/:key/matches": Pages.eventMatches,
   "/events": Pages.events,
 }).configure({
   html5history: false,
