@@ -10,10 +10,8 @@ export function event(key) {
     TBA.get("event/"+key),
   ]).then(function(res) {
     const [template, stats, event] = res;
-    console.log(event)
     const $container = $("#main").closest(".container");
     const containerClass = $container.attr("class");
-    $container.addClass("wide");
     const ractive = new Ractive({
       template: template,
       data: {
@@ -37,7 +35,10 @@ export function event(key) {
           return $(window).width() < 900;
         }
       },
-      onteardown: function() {
+      onrender: function() {
+        $container.addClass("wide");
+      },
+      onunrender: function() {
         $container.attr("class", containerClass);
       }
     });
