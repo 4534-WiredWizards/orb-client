@@ -34,7 +34,7 @@ export function event(key) {
           return $(window).width() < 900;
         }
       },
-      ondestroy: function() {
+      onteardown: function() {
         $container.attr("class", containerClass);
       }
     });
