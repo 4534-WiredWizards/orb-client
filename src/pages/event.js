@@ -1,14 +1,16 @@
 import '../lib/es6-promise.min.js'
 import Templates from "../Templates"
 import { getJSON, round } from "../helpers"
-import API, { getTeams, getTeamStats } from "../API"
+import API, { TBA, getTeams, getTeamStats } from "../API"
 
 export function event(key) {
   Promise.all([
     Templates.get("event"),
-    getJSON("stats-config.json")
+    getJSON("stats-config.json"),
+    TBA.get("event/"+key),
   ]).then(function(res) {
-    const [template, stats] = res;
+    const [template, stats, event] = res;
+    console.log(event)
     const $container = $("#main").closest(".container");
     const containerClass = $container.attr("class");
     $container.addClass("wide");
@@ -20,6 +22,7 @@ export function event(key) {
         loading: true,
         teams: [],
         round: round,
+        event: event,
         statColor(value, stat) {
           const value = parseFloat(value);
           for(let i = 0; i < stat.progress.length; i++) {

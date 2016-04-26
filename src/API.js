@@ -21,6 +21,24 @@ export default cacheable(function(key) {
   });
 });
 
+export let TBA = cacheable(function(path) {
+  const url = "http://www.thebluealliance.com/api/v2/" + path;
+  return new Promise(function(resolve, reject) {
+    return $.ajax({
+      method: "get",
+      dataType: "json",
+      data: {
+        'X-TBA-App-Id': "frc4534:orb:client"
+      },
+      url: url,
+      error: reject
+    }).then(resolve);
+  }).catch(function(res) {
+    console.error("API Request Unsuccessful", url, res);
+    return res;
+  });
+});
+
 export function getTeamStats(API, key, team) {
   let promises = [
     API.get("team/"+key+"/defense"),
