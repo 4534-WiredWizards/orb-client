@@ -26,6 +26,7 @@ export function getTeamStats(API, key, team) {
   let promises = [
     API.get("team/"+key+"/defense"),
     API.get("team/"+key+"/goals"),
+    API.get("team/"+key+"/score"),
   ];
   if (typeof team == "object" && team.team_number == team) {
     promises.push((resolve, reject) => resolve(team))
@@ -33,12 +34,12 @@ export function getTeamStats(API, key, team) {
     promises.push(API.get("team/"+key));
   }
   return Promise.all(promises).then(function(res) {
-    let [defenses, goals, team] = res;
+    let [defenses, goals, score, team] = res;
     return extend(team, {
       stats: {
         calcs: {
           predicted_rp: 0,
-          score: 0
+          score: score
         },
         defenses: {
           low_bar: defenses[1],
