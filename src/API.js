@@ -7,7 +7,6 @@ import { extend } from './helpers'
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
   let url = "http://c5032021.ngrok.io/"+key+"/";
-  //url = "api.php?url="+encodeURIComponent(url);
   return new Promise(function(resolve, reject) {
     return $.ajax({
       method: "get",
@@ -22,10 +21,29 @@ export default cacheable(function(key) {
   });
 });
 
+export let TBA = cacheable(function(path) {
+  const url = "http://www.thebluealliance.com/api/v2/" + path;
+  return new Promise(function(resolve, reject) {
+    return $.ajax({
+      method: "get",
+      dataType: "json",
+      data: {
+        'X-TBA-App-Id': "frc4534:orb:client"
+      },
+      url: url,
+      error: reject
+    }).then(resolve);
+  }).catch(function(res) {
+    console.error("API Request Unsuccessful", url, res);
+    return res;
+  });
+});
+
 export function getTeamStats(API, key, team) {
   let promises = [
     API.get("team/"+key+"/defense"),
     API.get("team/"+key+"/goals"),
+    API.get("team/"+key+"/score"),
   ];
   if (typeof team == "object" && team.team_number == team) {
     promises.push((resolve, reject) => resolve(team))
@@ -33,24 +51,12 @@ export function getTeamStats(API, key, team) {
     promises.push(API.get("team/"+key));
   }
   return Promise.all(promises).then(function(res) {
-    let [defenses, goals, team] = res;
-    defenses = goals = [
-      4534,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-      Math.random()*2,
-    ];
+    let [defenses, goals, score, team] = res;
     return extend(team, {
       stats: {
         calcs: {
-          predicted_rp: Math.random()*2*10,
-          score: 0
+          predicted_rp: 0,
+          score: score
         },
         defenses: {
           low_bar: defenses[1],

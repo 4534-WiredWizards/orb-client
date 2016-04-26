@@ -9,6 +9,7 @@ const router = Router({
   "/login": Pages.login,
   "/team/:key": Pages.team,
   "/event/:key": Pages.event,
+  "/events": Pages.events,
 }).configure({
   html5history: false,
   before: [function() {
@@ -27,7 +28,7 @@ Promise.all([documentReady, Components.load()]).then(function(res) {
   router.init();
   if (!router.getRoute().filter(Boolean).length) {
     if(localStorage.getItem('token')) {
-      router.setRoute("/event/2016arc");
+      router.setRoute("/events");
     } else {
       router.setRoute("/login");
     }
