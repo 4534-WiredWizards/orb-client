@@ -36,6 +36,7 @@ export function login() {
         localStorage.setItem("user.team", team);
         var token = generateToken(team, name);
         location.hash = "#/a/events";
+        return false;
       });
     }
   }).catch(console.error.bind(console));
