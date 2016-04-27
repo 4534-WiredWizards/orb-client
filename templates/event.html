@@ -2,7 +2,7 @@
 <table class="table-responsive sortable-theme-bootstrap" data-sortable>
   <thead>
     <tr>
-      <th style="min-width: 65px;">Team #</th>
+      <th style="min-width: 65px;" data-sorted="true" data-sorted-direction="ascending">Team #</th>
       <th>Name</th>
       {{#each ['auto_low', 'auto_high', 'teleop_low', 'teleop_high'] }}
         <th class="right" title="{{ statConfig.goals[this].short_label }}">{{ statConfig.goals[this].short_label || statConfig.goals[this].label }}</th>
@@ -21,7 +21,7 @@
     {{/if}}
     {{#teams:i}}
       <tr>
-        <td><a href="#/team/{{team_number}}">{{team_number}}</a></td>
+        <td><a href="#/a/team/{{team_number}}">{{team_number}}</a></td>
         <td>{{nickname}}</td>
         {{#each statConfig.goals}}
           <td class="right stat">{{ round(teams[i].stats.goals[@key], this.decimals) }}</td>

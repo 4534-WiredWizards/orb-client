@@ -1,19 +1,24 @@
 import * as Pages from './Pages'
 import Components from './Components'
-import { documentReady } from './helpers'
+import {
+  documentReady
+} from './helpers'
 import './lib/es6-promise.min.js'
 
 const el = "#main";
 
 const router = Router({
   "/login": Pages.login,
-  "/team/:key": Pages.team,
-  "/event/:key": Pages.event,
-  "/events": Pages.events,
+  "/a": {
+    "/team/:key": Pages.team,
+    "/event/:key": Pages.event,
+    "/events": Pages.events
+  }
 }).configure({
   html5history: false,
-  before: [function() {
-  }],
+  before: [],
+  after: [],
+  recurse: 'forward'
 });
 
 Promise.all([documentReady, Components.load()]).then(function(res) {
@@ -23,12 +28,12 @@ Promise.all([documentReady, Components.load()]).then(function(res) {
     components: Components.components,
     before: [function() {
       $(window).scrollTop(0);
-    }],
+    }]
   });
   router.init();
   if (!router.getRoute().filter(Boolean).length) {
-    if(localStorage.getItem('token')) {
-      router.setRoute("/events");
+    if (localStorage.getItem('token')) {
+      router.setRoute("/a/events");
     } else {
       router.setRoute("/login");
     }

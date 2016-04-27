@@ -1,15 +1,17 @@
 import '../lib/es6-promise.min.js'
 import Templates from "../Templates"
+import LoginCheck from "../LoginCheck"
 import { getJSON, round } from "../helpers"
 import API, { TBA, getTeams, getTeamStats } from "../API"
 
 export function event(key) {
   Promise.all([
+    LoginCheck.get(),
     Templates.get("event"),
     getJSON("stats-config.json"),
     TBA.get("event/"+key),
   ]).then(function(res) {
-    const [template, stats, event] = res;
+    const [, template, stats, event] = res;
     const $container = $("#main").closest(".container");
     const containerClass = $container.attr("class");
     const ractive = new Ractive({
@@ -28,6 +30,12 @@ export function event(key) {
               return stat.progress[i].class;
             }
           }
+        },
+        mobile: $(window).width() < 900,
+        token: localStorage.getItem('token'),
+        user: {
+          name: localStorage.getItem('user.name') || '',
+          team: localStorage.getItem('user.team') || ''
         }
       },
       computed: {
