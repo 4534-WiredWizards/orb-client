@@ -22,7 +22,7 @@
             <p class="list-group-item-text">
                <b>Time</b>: {{moment(time*1000)}}<br>
                {{#if predictions}}
-                 <span title="{{predictions[0]}} - {{predictions[1]}}"><b>Prediction</b>: {{predictions[0] > predictions[1] ? "Red" : "Blue"}} Alliance wins</span><br>
+                 <span title="{{predictions[0]}} - {{predictions[1]}}"><b>Prediction</b>: {{predictions[0] > predictions[1] ? "Red" : "Blue"}} Alliance</span><br>
                {{/if}}
                <b>Alliances</b>:
                {{#alliances.blue}}
