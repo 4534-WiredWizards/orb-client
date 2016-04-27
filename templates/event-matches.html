@@ -2,7 +2,16 @@
   <h2>{{event.name}}</h2>
   <div><a href="https://www.thebluealliance.com/event/{{ event.key }}" target="_blank">Open in TBA</a></div>
 </div>
-<a class="btn btn-default" href="#/event/{{ event.key }}">View Teams</a>
+<a class="btn btn-default" href="#/a/event/{{ event.key }}">View Teams</a>
+<p>
+  {{#if loading == 1}}
+    Loading matches...
+  {{elseif loading == 2}}
+    Loading predictions...
+  {{else}}
+    &nbsp;
+  {{/if}}
+</p>
 {{#if matches.length}}
    <div class="list-group">
       {{#each matches}}
@@ -12,13 +21,16 @@
             </h4>
             <p class="list-group-item-text">
                <b>Time</b>: {{moment(time*1000)}}<br>
+               {{#if predictions}}
+                 <span title="{{predictions[0]}} - {{predictions[1]}}"><b>Prediction</b>: {{predictions[0] > predictions[1] ? "Red" : "Blue"}} Alliance wins</span><br>
+               {{/if}}
                <b>Alliances</b>:
                {{#alliances.blue}}
                   <p style="padding-left: 1.5em;">
                      Blue Alliance: {{score}}<br>
                      Teams:
                      {{#each teams:i}}
-                        <a href="#/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+                        <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
                      {{/each}}
                   </p>
                {{/}}
@@ -27,7 +39,7 @@
                      Red Alliance: {{score}}<br>
                      Teams:
                      {{#each teams:i}}
-                        <a href="#/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+                        <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
                      {{/each}}
                   </p>
                {{/}}

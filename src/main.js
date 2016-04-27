@@ -11,15 +11,16 @@ const router = Router({
   "/login": Pages.login,
   "/a": {
     "/team/:key": Pages.team,
+    "/match/:key": Pages.match,
     "/event/:key": Pages.event,
-    "/event/:key/matches": Pages.eventMatches,
+    "/matches/:key": Pages.eventMatches,
     "/events": Pages.events
   }
 }).configure({
   html5history: false,
   before: [],
   after: [],
-  recurse: 'forward'
+  recurse: 'forward',
 });
 
 Promise.all([documentReady, Components.load()]).then(function(res) {
@@ -29,7 +30,7 @@ Promise.all([documentReady, Components.load()]).then(function(res) {
     components: Components.components,
     before: [function() {
       $(window).scrollTop(0);
-    }]
+    }],
   });
   router.init();
   if (!router.getRoute().filter(Boolean).length) {

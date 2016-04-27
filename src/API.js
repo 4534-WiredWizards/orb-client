@@ -6,7 +6,8 @@ import { extend } from './helpers'
 
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
-  let url = "http://orb.scoutfrc.io/"+key+"/";
+  let url = "http://orb.scoutfrc.io/"+key;
+  url = "http://c5032021.ngrok.io/"+key;
   return new Promise(function(resolve, reject) {
     return $.ajax({
       method: "get",
