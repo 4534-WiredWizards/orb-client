@@ -21,27 +21,42 @@
             </h4>
             <p class="list-group-item-text">
                <b>Time</b>: {{moment(time*1000)}}<br>
+               {{#if alliances.blue.score || alliances.red.score}}
+                 <b>Winner</b>:
+                 {{#if alliances.red.score > alliances.blue.score}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{alliances.red.score}} - {{alliances.blue.score}})
+                 <br>
+               {{/if}}
                {{#if predictions}}
-                 <span title="{{predictions[0]}} - {{predictions[1]}}"><b>Prediction</b>: {{predictions[0] > predictions[1] ? "Red" : "Blue"}} Alliance</span><br>
+                 <b>Predicted</b>:
+                 {{#if predictions[0] > predictions[1]}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{predictions[0]}} - {{predictions[1]}})
+                 <br>
                {{/if}}
                <b>Alliances</b>:
-               {{#alliances.blue}}
-                  <p style="padding-left: 1.5em;">
-                     Blue Alliance: {{score}}<br>
-                     Teams:
-                     {{#each teams:i}}
-                        <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
-                     {{/each}}
-                  </p>
-               {{/}}
                {{#alliances.red}}
-                  <p style="padding-left: 1.5em;">
-                     Red Alliance: {{score}}<br>
-                     Teams:
-                     {{#each teams:i}}
-                        <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
-                     {{/each}}
-                  </p>
+                 <br>
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 Red:
+                 {{#each teams:i}}
+                    <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+                 {{/each}}
+               {{/}}
+               {{#alliances.blue}}
+                 <br>
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 Blue:
+                 {{#each teams:i}}
+                    <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+                 {{/each}}
                {{/}}
             </p>
          </a>

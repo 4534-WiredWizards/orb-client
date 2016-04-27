@@ -164,3 +164,11 @@ th.right, td.right {
 .container.wide {
     width: 100%;
 }
+
+.blue {
+  color: blue;
+}
+
+.red {
+  color: red;
+}

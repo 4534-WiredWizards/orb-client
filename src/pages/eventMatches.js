@@ -1,6 +1,7 @@
 import '../lib/es6-promise.min.js'
 import Templates from "../Templates"
 import API, { TBA } from "../API"
+import { round } from "../helpers"
 
 export function eventMatches(eventKey) {
   Promise.all([
@@ -36,7 +37,7 @@ export function eventMatches(eventKey) {
       Promise.all(matches.map(match => API.get(`work/match/${eventKey}/${match.key}`))).then(function(matches) {
         ractive.set({
           matches: ractive.get("matches").map((match, i) => {
-            match.predictions = matches[i];
+            match.predictions = matches[i].map(score => round(score, 2));
             return match;
           }),
           loading: 0
