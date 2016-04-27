@@ -12,6 +12,7 @@ const router = Router({
   "/a": {
     "/team/:key": Pages.team,
     "/event/:key": Pages.event,
+    "/event/:key/matches": Pages.eventMatches,
     "/events": Pages.events
   }
 }).configure({
