@@ -39,4 +39,33 @@ Promise.all([documentReady, Components.load()]).then(function(res) {
       router.setRoute("/login");
     }
   }
+
+  $(".navbar").on("click", "a[href][href!='#']", function() {
+    if ($('.collapse.in').length > 0) {
+      $('.navbar-toggle').click();
+    }
+  });
+
+  const $overlay = $("<div>", {
+    class: "overlay",
+    css: {
+      "display": "none"
+    },
+    click() {
+      if ($('.collapse.in').length > 0) {
+        $('.navbar-toggle').click();
+      }
+    }
+  });
+
+  $overlay.prependTo("html");
+
+  $('.navbar-toggle').click(function() {
+    if ($('.collapse.in').length > 0) {
+      $overlay.hide();
+    } else {
+      $overlay.show();
+    }
+  });
+
 });
