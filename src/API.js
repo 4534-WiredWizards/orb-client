@@ -11,7 +11,9 @@ export default cacheable(function(key) {
     return $.ajax({
       method: "get",
       dataType: "json",
-      data: {},
+      data: {
+        token: localStorage.getItem("token"),
+      },
       url: url,
       error: reject,
     }).then(resolve);
