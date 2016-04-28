@@ -57,7 +57,7 @@ export function eventMatches(eventKey) {
         predictionsCounts.ccwms.push(ccwmPred == winner)
       });
       ractive.set({
-        matches: matches,
+        matches: matches.sort((a, b) => a.time - b.time),
         loading: 2,
         predictions: 1
       });
@@ -67,9 +67,46 @@ export function eventMatches(eventKey) {
           matches: ractive.get("matches").map((match, i) => {
             match.predictions = matches[i].map(score => round(score, 2));
             return match;
+          }).sort((match, i) => {
+            console.log(match)
           }),
         });
       });
     });
   });
 }
+
+/*
+{{#if predictions}}
+  <b>Predicted</b>:
+  {{#if predictions[0] > predictions[1]}}
+    <span class="red">Red</span>
+  {{else}}
+    <span class="blue">Blue</span>
+  {{/if}}
+  ({{predictions[0]}} - {{predictions[1]}})
+  <br>
+  OPR:
+  {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'oprs')}}
+    <span class="red">Red</span>
+  {{else}}
+    <span class="blue">Blue</span>
+  {{/if}}
+  ({{getAllianceSum(alliances.red.teams, 'oprs')}} - {{getAllianceSum(alliances.blue.teams, 'oprs')}})
+  <br>
+  DPR:
+  {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'dprs')}}
+    <span class="red">Red</span>
+  {{else}}
+    <span class="blue">Blue</span>
+  {{/if}}
+  ({{getAllianceSum(alliances.red.teams, 'dprs')}} - {{getAllianceSum(alliances.blue.teams, 'dprs')}})
+  <br>
+  CCWM:
+  {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'ccwms')}}
+    <span class="red">Red</span>
+  {{else}}
+    <span class="blue">Blue</span>
+  {{/if}}
+  ({{getAllianceSum(alliances.red.teams, 'ccwms')}} - {{getAllianceSum(alliances.blue.teams, 'ccwms')}})
+{{/if}}*/

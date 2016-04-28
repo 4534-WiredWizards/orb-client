@@ -21,48 +21,17 @@
             </h4>
             <p class="list-group-item-text">
                <b>Time</b>: {{moment(time*1000)}}<br>
-               {{#if alliances.blue.score || alliances.red.score}}
-                 <b>Winner</b>:
-                 {{#if alliances.red.score > alliances.blue.score}}
-                   <span class="red">Red</span>
-                 {{else}}
-                   <span class="blue">Blue</span>
+               {{#if alliances.red.score > -1}}
+                 {{#if alliances.blue.score || alliances.red.score}}
+                   <b>Winner</b>:
+                   {{#if alliances.red.score > alliances.blue.score}}
+                     <span class="red">Red</span>
+                   {{else}}
+                     <span class="blue">Blue</span>
+                   {{/if}}
+                   ({{alliances.red.score}} - {{alliances.blue.score}})
+                   <br>
                  {{/if}}
-                 ({{alliances.red.score}} - {{alliances.blue.score}})
-                 <br>
-               {{/if}}
-               {{#if predictions}}
-                 <b>Predicted</b>:
-                 {{#if predictions[0] > predictions[1]}}
-                   <span class="red">Red</span>
-                 {{else}}
-                   <span class="blue">Blue</span>
-                 {{/if}}
-                 ({{predictions[0]}} - {{predictions[1]}})
-                 <br>
-                 OPR:
-                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'oprs')}}
-                   <span class="red">Red</span>
-                 {{else}}
-                   <span class="blue">Blue</span>
-                 {{/if}}
-                 ({{getAllianceSum(alliances.red.teams, 'oprs')}} - {{getAllianceSum(alliances.blue.teams, 'oprs')}})
-                 <br>
-                 DPR:
-                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'dprs')}}
-                   <span class="red">Red</span>
-                 {{else}}
-                   <span class="blue">Blue</span>
-                 {{/if}}
-                 ({{getAllianceSum(alliances.red.teams, 'dprs')}} - {{getAllianceSum(alliances.blue.teams, 'dprs')}})
-                 <br>
-                 CCWM:
-                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'ccwms')}}
-                   <span class="red">Red</span>
-                 {{else}}
-                   <span class="blue">Blue</span>
-                 {{/if}}
-                 ({{getAllianceSum(alliances.red.teams, 'ccwms')}} - {{getAllianceSum(alliances.blue.teams, 'ccwms')}})
                {{/if}}
                <b>Alliances</b>:
                {{#alliances.red}}
