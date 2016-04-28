@@ -33,6 +33,18 @@
                    <br>
                  {{/if}}
                {{/if}}
+               {{#if predictions}}
+                 <b>Predictions</b>:<br>
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 ORB:
+                 {{#if predictions[0] > predictions[1]}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{predictions[0]}} - {{predictions[1]}})
+               {{/if}}
+               <br>
                <b>Alliances</b>:
                {{#alliances.red}}
                  <br>

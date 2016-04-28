@@ -14,6 +14,7 @@ export function eventMatches(eventKey) {
       "oprs": [],
       "dprs": [],
       "ccwms": [],
+      "orb": []
     };
     const ractive = new Ractive({
       template: template,
@@ -59,7 +60,6 @@ export function eventMatches(eventKey) {
       ractive.set({
         matches: matches.sort((a, b) => a.time - b.time),
         loading: 2,
-        predictions: 1
       });
       Promise.all(matches.map(match => API.get(`work/match/${eventKey}/${match.key}`))).then(function(matches) {
         ractive.set("loading", 0);
@@ -67,10 +67,18 @@ export function eventMatches(eventKey) {
           matches: ractive.get("matches").map((match, i) => {
             match.predictions = matches[i].map(score => round(score, 2));
             return match;
-          }).sort((match, i) => {
-            console.log(match)
           }),
         });
+        ractive.get("matches").forEach(function(match) {
+          const red = match.alliances.red,
+                blue = match.alliances.blue;
+          const winner = red.score > blue.score;
+          const orbPred = match.predictions[0] > match.predictions[1];
+          predictionsCounts.orb.push(orbPred == winner)
+        })
+        console.log(predictionsCounts.orb)
+        console.log("ORB", predictionsCounts.orb.filter(Boolean).length/predictionsCounts.orb.length)
+        console.log("OPR", predictionsCounts.oprs.filter(Boolean).length/predictionsCounts.oprs.length)
       });
     });
   });

@@ -2,8 +2,6 @@ import './lib/es6-promise.min.js'
 import cacheable from './cacheable'
 import { extend } from './helpers'
 
-
-
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
   let url = "http://orb.scoutfrc.io/"+key;
