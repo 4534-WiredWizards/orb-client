@@ -61,6 +61,11 @@ export function getTeamStats(API, key, team) {
   }
   return Promise.all(promises).then(function(res) {
     let [team, score, defenses, goals, scale, challenge] = res;
+    scale = scale && scale.length >= 1 ? scale : [0];
+    defenses = defenses && defenses.length >= 8 ? defenses : [0,0,0,0,0,0,0,0];
+    challenge = challenge && challenge.length >= 1 ? challenge : [0];
+    goals = goals && goals.length >= 4 ? goals : [0,0,0,0];
+    score = !isNaN(Number(score)) ? score : 0
     return extend(team, {
       stats: {
         calcs: {
