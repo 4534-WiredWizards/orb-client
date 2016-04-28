@@ -97,6 +97,7 @@ footer > p {
 
 .calcs > .row .value,
 .defenses > .row .value,
+.tower > .row .value,
 .goals > div .value {
     float: right;
 }

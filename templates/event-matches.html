@@ -40,6 +40,29 @@
                  {{/if}}
                  ({{predictions[0]}} - {{predictions[1]}})
                  <br>
+                 OPR:
+                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'oprs')}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{getAllianceSum(alliances.red.teams, 'oprs')}} - {{getAllianceSum(alliances.blue.teams, 'oprs')}})
+                 <br>
+                 DPR:
+                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'dprs')}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{getAllianceSum(alliances.red.teams, 'dprs')}} - {{getAllianceSum(alliances.blue.teams, 'dprs')}})
+                 <br>
+                 CCWM:
+                 {{#if getWinner(alliances.red.teams, alliances.blue.teams, 'ccwms')}}
+                   <span class="red">Red</span>
+                 {{else}}
+                   <span class="blue">Blue</span>
+                 {{/if}}
+                 ({{getAllianceSum(alliances.red.teams, 'ccwms')}} - {{getAllianceSum(alliances.blue.teams, 'ccwms')}})
                {{/if}}
                <b>Alliances</b>:
                {{#alliances.red}}

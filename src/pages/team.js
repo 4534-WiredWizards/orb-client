@@ -1,6 +1,6 @@
 import '../lib/es6-promise.min.js'
 import Templates from "../Templates"
-import LoginCheck from "../Templates"
+import LoginCheck from "../LoginCheck"
 import { getJSON, round } from "../helpers"
 import API, { getTeamStats } from "../API"
 
@@ -16,7 +16,7 @@ export function team(key) {
       template: template,
       data: {
         stats: stats,
-        statKeys: ['calcs', 'goals', 'defenses'],
+        statKeys: ['calcs', 'goals', 'defenses', 'tower'],
         key: key,
         team: teamData,
         round: round,
@@ -24,8 +24,8 @@ export function team(key) {
         token: localStorage.getItem('token'),
         user: {
           name: localStorage.getItem('user.name') || '',
-          team: localStorage.getItem('user.team') || ''
-        }
+          team: localStorage.getItem('user.team') || '',
+        },
       },
     });
   }).catch(console.error.bind(console));

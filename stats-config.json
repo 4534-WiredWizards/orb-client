@@ -4,7 +4,7 @@
       "label": "Calculations",
       "groups": [
         {
-          "stat_keys": ["predicted_rp", "score"]
+          "stat_keys": ["score"]
         }
       ]
     },
@@ -45,6 +45,12 @@
           "stat_keys": ["rock_wall", "rough_terrain"]
         }
       ]
+    },
+    "tower": {
+      "label": "Tower",
+      "groups": {
+        "stat_keys": ["scale", "challenge"]
+      }
     }
   },
   "calcs": {
@@ -290,6 +296,52 @@
         }
       ],
       "multiplier": 2.5
+    }
+  },
+  "tower": {
+    "scale": {
+      "label": "Scale",
+      "min": 0,
+      "max": 1,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.2,
+          "class": "danger"
+        },
+        {
+          "min": 0.2,
+          "max": 0.5,
+          "class": "warning"
+        },
+        {
+          "min": 0.5,
+          "max": 1,
+          "class": "success"
+        }
+      ]
+    },
+    "challenge": {
+      "label": "Challenge",
+      "min": 0,
+      "max": 1,
+      "decimals": 2,
+      "progress": [
+        {
+          "max": 0.8,
+          "class": "danger"
+        },
+        {
+          "min": 0.8,
+          "max": 0.9,
+          "class": "warning"
+        },
+        {
+          "min": 0.9,
+          "max": 1,
+          "class": "success"
+        }
+      ]
     }
   }
 }

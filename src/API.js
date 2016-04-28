@@ -7,14 +7,13 @@ import { extend } from './helpers'
 export default cacheable(function(key) {
   const key = key.replace(/^\//, "").replace(/\/$/, "");
   let url = "http://orb.scoutfrc.io/"+key;
-  url = "http://c5032021.ngrok.io/"+key;
   return new Promise(function(resolve, reject) {
     return $.ajax({
       method: "get",
       dataType: "json",
       data: {},
       url: url,
-      error: reject
+      error: reject,
     }).then(resolve);
   }).catch(function(res) {
     console.error("API Request Unsuccessful", url, res);
@@ -41,41 +40,53 @@ export let TBA = cacheable(function(path) {
 });
 
 export function getTeamStats(API, key, team) {
-  let promises = [
-    API.get("team/"+key+"/defense"),
-    API.get("team/"+key+"/goals"),
-    API.get("team/"+key+"/score"),
-  ];
-  if (typeof team == "object" && team.team_number == team) {
-    promises.push((resolve, reject) => resolve(team))
+  let promises = [];
+  if (typeof team == "object" && team.team_number == key) {
+    promises.push(new Promise((resolve, reject) => resolve(team)))
   } else {
     promises.push(API.get("team/"+key));
   }
+  if (typeof team == "object" && typeof team.stats == "object") {
+    promises.push(new Promise((resolve, reject) => resolve(team.stats.score)));
+    promises.push(new Promise((resolve, reject) => resolve(team.stats.defenses)));
+    promises.push(new Promise((resolve, reject) => resolve(team.stats.goals)));
+    promises.push(new Promise((resolve, reject) => resolve(team.stats.scale)));
+    promises.push(new Promise((resolve, reject) => resolve(team.stats.challenge)));
+  } else {
+    promises.push(API.get("team/"+key+"/score"));
+    promises.push(API.get("team/"+key+"/defense"));
+    promises.push(API.get("team/"+key+"/goals"));
+    promises.push(API.get("team/"+key+"/scale"));
+    promises.push(API.get("team/"+key+"/challenge"));
+  }
   return Promise.all(promises).then(function(res) {
-    let [defenses, goals, score, team] = res;
+    let [team, score, defenses, goals, scale, challenge] = res;
     return extend(team, {
       stats: {
         calcs: {
-          predicted_rp: 0,
           score: score
         },
         defenses: {
-          low_bar: defenses[1],
-          portcullis: defenses[2],
-          cheval_de_frise: defenses[3],
-          moat: defenses[4],
-          ramparts: defenses[5],
-          drawbridge: defenses[6],
-          sally_port: defenses[7],
-          rock_wall: defenses[8],
-          rough_terrain: defenses[9],
+          low_bar: defenses[0],
+          portcullis: defenses[1],
+          cheval_de_frise: defenses[2],
+          moat: defenses[3],
+          ramparts: defenses[4],
+          drawbridge: defenses[5],
+          sally_port: defenses[6],
+          rock_wall: defenses[7],
+          rough_terrain: defenses[8],
         },
         goals: {
-          auto_low: goals[1],
-          auto_high: goals[2],
-          teleop_low: goals[3],
-          teleop_high: goals[4],
+          auto_low: goals[0],
+          auto_high: goals[1],
+          teleop_low: goals[2],
+          teleop_high: goals[3],
         },
+        tower: {
+          scale: scale[0],
+          challenge: challenge[0]
+        }
       }
     });
   });

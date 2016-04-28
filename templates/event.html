@@ -14,7 +14,10 @@
       {{#each statConfig.defenses:key}}
         <th class="right" title="{{ this.label }}">{{ this.short_label || this.label }}</th>
       {{/each}}
-      {{#each ['predicted_rp', 'score'] }}
+      {{#each statConfig.tower:key}}
+        <th class="right" title="{{ this.label }}">{{ this.short_label || this.label }}</th>
+      {{/each}}
+      {{#each ['score'] }}
         <th class="{{ statConfig.calcs[this].align }}" title="{{ statConfig.calcs[this].label }}">{{ statConfig.calcs[this].short_label || statConfig.calcs[this].label }}</th>
       {{/each}}
     </tr>
@@ -26,7 +29,7 @@
     {{#teams:i}}
       <tr>
         <td><a href="#/a/team/{{team_number}}">{{team_number}}</a></td>
-        <td>{{nickname}}</td>
+        <td>{{name}}</td>
         {{#each statConfig.goals}}
           <td class="right stat">{{ round(teams[i].stats.goals[@key], this.decimals) }}</td>
         {{/each}}
@@ -45,7 +48,22 @@
             {{/}}
           </td>
         {{/each}}
-        {{#each ['predicted_rp', 'score'] }}
+        {{#each statConfig.tower }}
+          <td class="right stat">
+            {{# { value: round(teams[i].stats.tower[@key], this.decimals), stat: this } }}
+              {{#if mobile && stat.progress}}
+                <span class="label label-{{statColor(value, stat)}}">{{value}}</span>
+              {{else}}
+                {{value}}
+                {{#if stat.progress}}
+                  <br>
+                  <Progress value="{{value}}" stat="{{stat}}"/>
+                {{/if}}
+              {{/if}}
+            {{/}}
+          </td>
+        {{/each}}
+        {{#each ['score'] }}
           <td class="{{ statConfig.calcs[this].align }} stat">{{ round(teams[i].stats.calcs[this], statConfig.calcs[this].decimals) }}</td>
         {{/each}}
       </tr>
