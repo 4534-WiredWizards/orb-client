@@ -12,6 +12,7 @@ export default function cacheable(getPromise) {
     get(key, callback) {
       return new Promise(function(resolve, reject) {
         if (_cache[key]) {
+          console.log(_cache)
           return resolve(_cache[key]);
         }
 

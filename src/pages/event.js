@@ -52,7 +52,6 @@ export function event(key) {
     });
 
     getTeams(API, key).then(function(teams) {
-      console.log(teams)
       ractive.set({
         teams: teams.sort(function(a, b) {
           return a.team_number - b.team_number

@@ -39,19 +39,19 @@ export let TBA = cacheable(function(path) {
   });
 });
 
-export function getTeamStats(API, key, team) {
+export function getTeamStats(API, key, teamObject) {
   let promises = [];
-  if (typeof team == "object" && team.team_number == key) {
-    promises.push(new Promise((resolve, reject) => resolve(team)))
+  if (typeof teamObject == "object" && teamObject.team_number == key) {
+    promises.push(new Promise((resolve, reject) => resolve(teamObject)))
   } else {
     promises.push(API.get("team/"+key));
   }
-  if (typeof team == "object" && typeof team.stats == "object") {
-    promises.push(new Promise((resolve, reject) => resolve(team.stats.score)));
-    promises.push(new Promise((resolve, reject) => resolve(team.stats.defenses)));
-    promises.push(new Promise((resolve, reject) => resolve(team.stats.goals)));
-    promises.push(new Promise((resolve, reject) => resolve(team.stats.scale)));
-    promises.push(new Promise((resolve, reject) => resolve(team.stats.challenge)));
+  if (typeof teamObject == "object" && teamObject.team_number == key && typeof teamObject.stats == "object") {
+    promises.push(new Promise((resolve, reject) => resolve(teamObject.stats.score)));
+    promises.push(new Promise((resolve, reject) => resolve(teamObject.stats.defenses)));
+    promises.push(new Promise((resolve, reject) => resolve(teamObject.stats.goals)));
+    promises.push(new Promise((resolve, reject) => resolve(teamObject.stats.scale)));
+    promises.push(new Promise((resolve, reject) => resolve(teamObject.stats.challenge)));
   } else {
     promises.push(API.get("team/"+key+"/score"));
     promises.push(API.get("team/"+key+"/defense"));
@@ -66,7 +66,7 @@ export function getTeamStats(API, key, team) {
     challenge = challenge && challenge.length >= 1 ? challenge : [0];
     goals = goals && goals.length >= 4 ? goals : [0,0,0,0];
     score = !isNaN(Number(score)) ? score : 0
-    return extend(team, {
+    return extend({}, team, {
       stats: {
         calcs: {
           score: score
