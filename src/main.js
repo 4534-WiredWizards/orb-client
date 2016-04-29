@@ -11,10 +11,10 @@ const router = Router({
   "/login": Pages.login,
   "/a": {
     "/team/:key": Pages.team,
+    "/event/:key": Pages.eventTeams,
+    "/events": Pages.events,
     "/match/:key": Pages.match,
-    "/event/:key": Pages.event,
     "/matches/:key": Pages.eventMatches,
-    "/events": Pages.events
   }
 }).configure({
   html5history: false,

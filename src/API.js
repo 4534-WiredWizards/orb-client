@@ -110,3 +110,32 @@ export function generateToken(team,name) {
   localStorage.setItem("token",token);
   return token;
 }
+
+const matchLabels = {
+  qm: "Quals",
+  qf: "Quarters",
+  sf: "Semis",
+  f: "Finals"
+};
+
+/*
+Quals m
+Quarters n Match m
+Semis n Match m
+Finals m
+*/
+
+export function matchLabel(match) {
+  let label = matchLabels[match.comp_level] || "";
+  const matchKey = match.key.split('_')[1];
+  if (match.comp_level != "f") {
+    label += " " + matchKey.replace(/^[a-zA-Z]+(\d+).*/, '$1');
+    const subLevel = matchKey.replace(new RegExp(match.comp_level + "\\d+(m)?"), "");
+    if (subLevel) {
+      label += " Match " + match.match_number;
+    }
+  } else {
+    label += " " + match.match_number;
+  }
+  return label;
+}

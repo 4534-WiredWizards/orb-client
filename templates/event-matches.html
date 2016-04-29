@@ -15,9 +15,10 @@
 {{#if matches.length}}
    <div class="list-group">
       {{#each matches}}
-         <a href="https://www.thebluealliance.com/match/{{key}}" class="list-group-item" target="_blank">
+         <a href="#/a/match/{{key}}" class="list-group-item">
+            <a style="float: right" href="//www.thebluealliance.com/match/{{key}}" target="_blank">Open in TBA</a>
             <h4 class="list-group-item-heading">
-               Match #{{match_number}}
+               {{label}}
             </h4>
             <p class="list-group-item-text">
                <b>Time</b>: {{moment(time*1000)}}<br>

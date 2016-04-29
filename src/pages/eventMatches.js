@@ -1,15 +1,17 @@
 import '../lib/es6-promise.min.js'
 import Templates from "../Templates"
-import API, { TBA } from "../API"
-import { round } from "../helpers"
+import API, { TBA, matchLabel } from "../API"
+import { extend, round } from "../helpers"
+import LoginCheck from "../LoginCheck"
 
 export function eventMatches(eventKey) {
   Promise.all([
+    LoginCheck.get(),
     Templates.get("event-matches"),
     TBA.get("event/"+eventKey),
     TBA.get("event/"+eventKey+"/stats"),
   ]).then(function(res) {
-    const [template, event, eventStats] = res;
+    const [, template, event, eventStats] = res;
     const predictionsCounts = {
       "oprs": [],
       "dprs": [],
@@ -40,7 +42,7 @@ export function eventMatches(eventKey) {
       },
     });
     TBA.get("event/"+eventKey+"/matches").then(function(matches) {
-      return matches;
+      return matches.map(match => extend(match, {label: matchLabel(match)}));
     }).then(function(matches) {
       const sum = ractive.get("getAllianceSum").bind(ractive);
       const predictedWinner = ractive.get("getWinner").bind(ractive);
@@ -65,6 +67,9 @@ export function eventMatches(eventKey) {
         ractive.set("loading", 0);
         ractive.set({
           matches: ractive.get("matches").map((match, i) => {
+            if (!matches[i].map) {
+              return;
+            }
             match.predictions = matches[i].map(score => round(score, 2));
             return match;
           }),

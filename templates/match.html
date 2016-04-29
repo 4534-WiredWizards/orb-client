@@ -1,0 +1,69 @@
+{{#match}}
+  <a style="float: right" href="//www.thebluealliance.com/match/{{key}}" target="_blank">Open in TBA</a>
+  <h4 class="list-group-item-heading">
+     {{label}}
+  </h4>
+  <p class="list-group-item-text">
+     <b>Time</b>: {{moment(time*1000)}}<br>
+     {{#if alliances.red.score > -1}}
+       {{#if alliances.blue.score || alliances.red.score}}
+         <b>Winner</b>:
+         {{#if alliances.red.score > alliances.blue.score}}
+           <span class="red">Red</span>
+         {{else}}
+           <span class="blue">Blue</span>
+         {{/if}}
+         ({{alliances.red.score}} - {{alliances.blue.score}})
+         <br>
+       {{/if}}
+     {{/if}}
+     {{#if predictions}}
+       <b>Predictions</b>:<br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       ORB:
+       {{#if predictions[0] > predictions[1]}}
+         <span class="red">Red</span>
+       {{else}}
+         <span class="blue">Blue</span>
+       {{/if}}
+       ({{predictions[0]}} - {{predictions[1]}})
+     {{/if}}
+     <br>
+     <b>Alliances</b>:
+     {{#alliances.red}}
+       <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       Red:
+       {{#each teams:i}}
+          <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+       {{/each}}
+     {{/}}
+     {{#alliances.blue}}
+       <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       Blue:
+       {{#each teams:i}}
+          <a href="#/a/team/{{this.match(/\d+/)[0]}}">{{this.match(/\d+/)[0]}}</a>{{#if i < teams.length-1}},&nbsp;{{/if}}
+       {{/each}}
+     {{/}}
+
+     <br>
+     <b>Optimal Red Defenses:</b>
+     <span>
+       <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <b>For</b>: {{defenses[0][0]}}<br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <b>Against</b>: {{defenses[0][1]}}
+     </span>
+     <br>
+     <b>Optimal Blue Defenses:</b>
+     <span>
+       <br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <b>For</b>: {{defenses[1][0]}}<br>
+       &nbsp;&nbsp;&nbsp;&nbsp;
+       <b>Against</b>: {{defenses[1][1]}}
+     </span>
+  </p>
+{{/}}
